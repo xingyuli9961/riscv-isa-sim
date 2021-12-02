@@ -1,5 +1,8 @@
 Spike RISC-V ISA Simulator
 ============================
+This is a twist of the original Spike RISC-V ISA Simulator modified by Xingyu Li (xingyuli9961@berkeley.edu) for his Fall2021 CS262A Project at UC Berkeley. 
+
+For each load or store instruction, it logs the data of the entire cacheline which the address reside in. This trace log will be further processed and used in the software simulation of the compression/decompression accelerators.
 
 About
 -------------
