@@ -6,6 +6,11 @@
 #include <iostream>
 #include <iomanip>
 
+// Xingyu: Start
+#include "decode.h"
+// Xingyu: End
+
+
 cache_sim_t::cache_sim_t(size_t _sets, size_t _ways, size_t _linesz, const char* _name)
 : sets(_sets), ways(_ways), linesz(_linesz), name(_name), log(false)
 {
@@ -141,6 +146,15 @@ void cache_sim_t::access(uint64_t addr, size_t bytes, bool store)
               << (store ? "write" : "read") << " miss 0x"
               << std::hex << addr << std::endl;
   }
+
+  // Xingyu: Start
+  // We want to trace the cacheline when the access cause a miss. In such way, we try to trace the communication between L1 and L2 cache
+  std::cout << "LoadTrace:" << " addr:" << " 0x" << std::hex << (addr);
+  for (size_t i = 0; i < 8; i++) {
+    std::cout << " 0x" << std::hex << MMU.load_uint64((addr & (~63)) + 8 * i);
+  }
+  std::cout << std::endl;
+  // Xingyu: End
 
   uint64_t victim = victimize(addr);
 
